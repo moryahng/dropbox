@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Box.io</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+      integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="style.css"/>
+  </head>
+
+  <body onload="myFunction()">
+    <div class="heading">
+      <h1>Box.io</h1>
+      <p>Your files storage</p></div>
+      <img id="upload-icon" src="upload.png" alt="" srcset="">
+    <div class="container">
+      <form action="/files" method="post" enctype="multipart/form-data">
+
+        <input
+          type="file"
+          name="upload"
+          id="myFile"
+          
+          size="50"
+          onchange="myFunction()"
+        />
+        <input id="submit-btn" type="submit" value="submit" />
+      </form>
+      <p><strong>Tip:</strong> Upload one file at a time</p>
+
+      <p id="fileInformation"></p>
+
+      <p id="files"></p>
+    </div>
+
+    <script
+      src="https://code.jquery.com/jquery-3.4.1.min.js"
+      integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+      crossorigin="anonymous"
+    ></script>
+
+    <!--This is just fancy script so that the file information is placed on the html page when you select the files.-->
+    <script>
+      function myFunction() {
+        let x = document.getElementById("myFile");
+        let txt = "";
+
+        if ("files" in x) {
+          if (x.files.length == 0) {
+            txt = "";
+          } else {
+            for (var i = 0; i < x.files.length; i++) {
+              txt += "<br><strong>" + (i + 1) + ". file</strong><br>";
+              var file = x.files[i];
+              if ("name" in file) {
+                txt += "name: " + file.name + "<br>";
+              }
+              if ("size" in file) {
+                txt += "size: " + file.size + " bytes <br>";
+              }
+            }
+          }
+        } else {
+          if (x.value == "") {
+            txt += "Select one or more files.";
+          } else {
+            txt += "The files property is not supported by your browser!";
+            txt += "<br>The path of the selected file: " + x.value;
+          }
+        }
+        document.getElementById("fileInformation").innerHTML = txt;
+      }
+    </script>
+    <script type="text/javascript"></script>
+  </body>
+</html>
